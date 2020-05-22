@@ -1,2 +1,2 @@
 # ClassroomScheduling
-Project for working in a classroom scheduling system algortihm
+Project for working in a classroom scheduling system algorithm
