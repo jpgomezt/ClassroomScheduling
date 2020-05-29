@@ -16,11 +16,14 @@ public class Reader {
                 int block = Integer.parseInt(id.substring(0,2));
                 String type = "";
                 String nextPattern = "";
-                if(!lineScanner.hasNextInt())
+                if(!lineScanner.hasNextInt()){
+                    nextPattern - lineScanner.next();
+                    type = type + lineScanner.next();
+                }
                 while(!lineScanner.hasNextInt()) {
                     nextPattern = lineScanner.next();
                     if(!nextPattern.equals("N/A")){
-                        type = type + lineScanner.next();
+                        type = type + "," + lineScanner.next();
                     }
                 }
                 System.out.println(type);
