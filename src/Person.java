@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Student {
+public class Person {
     final int id;
     final int mobility;
     ArrayList<Integer> courses = new ArrayList<>();
 
-    public Student(int id, int mobility) {
+    public Person(int id, int mobility) {
         this.id = id;
         this.mobility = mobility;
     }
@@ -28,7 +28,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Person{" +
                 "id=" + id +
                 ", mobility=" + mobility +
                 '}';

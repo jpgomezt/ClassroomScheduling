@@ -1,1 +1,0 @@
-import java.sql.Time;import java.time.Duration;import java.util.Date;public class Course {    /**    final String id;    final String number;    final Time horaInicio;    final Time horaFin;    public void prueba(){        horaFin.compareTo(horaInicio);    }*/}
