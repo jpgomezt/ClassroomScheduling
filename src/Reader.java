@@ -17,16 +17,15 @@ public class Reader {
                 String type = "";
                 String nextPattern = "";
                 if(!lineScanner.hasNextInt()){
-                    nextPattern - lineScanner.next();
-                    type = type + lineScanner.next();
+                    nextPattern = lineScanner.next();
+                    type = type + nextPattern;
                 }
                 while(!lineScanner.hasNextInt()) {
                     nextPattern = lineScanner.next();
                     if(!nextPattern.equals("N/A")){
-                        type = type + "," + lineScanner.next();
+                        type = type + "," + nextPattern;
                     }
                 }
-                System.out.println(type);
                 int capacity;
                 if(nextPattern.equals("N/A")){
                     capacity = -1;
@@ -37,6 +36,9 @@ public class Reader {
                 boolean access = false;
                 if(lineScanner.nextInt() == 1){
                     access = true;
+                }
+                if(listClassRooms.get(id) != null){
+                    System.out.println(id);
                 }
                 listClassRooms.put(id, new ClassRoom(id, type, block, capacity, access));
             }
