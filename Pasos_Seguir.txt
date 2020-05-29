@@ -1,8 +1,8 @@
 1. Crear clase aulas
-    -id aula
-    -type
-    -bloque
-    -capacity
+    -final int id aula
+    -final String type
+    -final intbloque
+    -final intcapacity
     -bookings*(mapa<key>"dias de la semana"<content>"mapa con hora como key y contenido clase")(no entra en constructor)
     -access(0|1)
     -typeClass()
