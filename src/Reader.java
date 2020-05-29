@@ -16,6 +16,7 @@ public class Reader {
                 listStudents.put(id, new Student(id, mobility));
             }
             scanner.close();
+            /**
             scanner = new Scanner(new File("CSV/mat20192.csv"));
             while (scanner.hasNextLine()){
                 String line = scanner.nextLine();
@@ -26,6 +27,7 @@ public class Reader {
                 listStudents.get(id).addCourses(course);
             }
             scanner.close();
+             */
         }
         catch (Exception e){
             System.err.println(e);
