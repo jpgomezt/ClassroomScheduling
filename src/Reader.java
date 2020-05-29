@@ -14,8 +14,23 @@ public class Reader {
                 lineScanner.useDelimiter(",");
                 String id = lineScanner.next();
                 int block = Integer.parseInt(id.substring(0,2));
-                String type = lineScanner.next();
-                int capacity = lineScanner.nextInt();
+                String type = "";
+                String nextPattern = "";
+                if(!lineScanner.hasNextInt())
+                while(!lineScanner.hasNextInt()) {
+                    nextPattern = lineScanner.next();
+                    if(!nextPattern.equals("N/A")){
+                        type = type + lineScanner.next();
+                    }
+                }
+                System.out.println(type);
+                int capacity;
+                if(nextPattern.equals("N/A")){
+                    capacity = -1;
+                }
+                else {
+                    capacity = lineScanner.nextInt();
+                }
                 boolean access = false;
                 if(lineScanner.nextInt() == 1){
                     access = true;
@@ -25,7 +40,7 @@ public class Reader {
             scanner.close();
         }
         catch (Exception e){
-            System.err.println(e);
+            System.err.println();
             return null;
         }
         return listClassRooms;
