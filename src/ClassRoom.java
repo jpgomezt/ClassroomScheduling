@@ -12,15 +12,13 @@ public class ClassRoom{
 
     final int capacity;
 
-    HashMap<char, HashMap<String, Group>> bookings;
+    HashMap<Character, HashMap<String, Group>> bookings;
 
-    public ClassRoom(int id, String type, int block, boolean access){
+    public ClassRoom(int id, String type, int block, int capacity) {
         this.id = id;
         this.type = type;
         this.block = block;
         this.capacity = capacity;
-        this.bookings = new HashMap<char, new HashMap<String, Group>;
-
     }
 }
 
