@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Reader {
 
-    public static HashMap<Integer, ClassRoom> getClassrooms() {
-        HashMap<Integer, ClassRoom> listClassRooms = new HashMap<>();
+    public static HashMap<String, ClassRoom> getClassrooms() {
+        HashMap<String, ClassRoom> listClassRooms = new HashMap<>();
         try {
             Scanner scanner = new Scanner(new File("CSV/aulas.csv"));
             while (scanner.hasNextLine()) {
