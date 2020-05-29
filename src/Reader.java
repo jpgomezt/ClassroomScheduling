@@ -20,7 +20,7 @@ public class Reader {
                 if(lineScanner.nextInt() == 1){
                     access = true;
                 }
-                listClassRooms.put(id, new ClassRoom(id, block, type, capacity, access));
+                listClassRooms.put(id, new ClassRoom(id, type, block, capacity, access));
             }
             scanner.close();
         }

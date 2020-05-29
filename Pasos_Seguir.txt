@@ -3,7 +3,7 @@
     -final String type
     -final intbloque
     -final intcapacity
-    -bookings*(mapa<key>"dias de la semana"<content>"mapa con hora como key y contenido clase")(no entra en constructor)
+    -bookings*(mapa<key>"dias de la semana"<content>"mapa con hora como key y contenido group")(no entra en constructor)
     -access(0|1)
     -typeClass()
     -bool canBooking(group);//mira si hay una clase a esa hora, o proxima dentro del margen

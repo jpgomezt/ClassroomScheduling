@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ClassRoom{
 
-    final int id;
+    final String id;
 
     final String type;
 
@@ -12,13 +12,16 @@ public class ClassRoom{
 
     final int capacity;
 
+    final boolean access;
+
     HashMap<Character, HashMap<String, Group>> bookings;
 
-    public ClassRoom(int id, String type, int block, int capacity) {
+    public ClassRoom(String id, String type, int block, int capacity, boolean access) {
         this.id = id;
         this.type = type;
         this.block = block;
         this.capacity = capacity;
+        this.access = access;
     }
 }
 
