@@ -8,6 +8,14 @@ public class Reader {
     static HashMap<String, ClassRoom> listClassRooms;
     static HashMap<String, Group> listGroups;
     static HashMap<String, Integer> listDistances;
+    static HashMap<String, Group> lessonPerDay[] = new HashMap<>()[7];
+    
+
+    public static void fillLessons(){
+        for(int i-0; i<lessonPerDay.length; i++){
+            lessonPerDay = new HashMap<String, Group>();
+        }
+    }
 
     public static HashMap<String, ClassRoom> getClassrooms() {
         listClassRooms = new HashMap<>();
@@ -58,6 +66,7 @@ public class Reader {
 
     public static HashMap<String, Group> getGroups() {
         listGroups = new HashMap<>();
+        fillLessons();
         try {
             Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/pa20192.csv"));
             while (scanner.hasNextLine()) {
@@ -79,12 +88,38 @@ public class Reader {
                 String endingTime = lineScanner.next();
                 String initialRoom = lineScanner.next();
                 Lesson lesson = new Lesson(day, startingTime, endingTime, initialRoom);
+                Group group = new Group(id, number, idProffessor, lesson);
                 if(listGroups.get(id+":"+number) != null){
                     listGroups.get(id+":"+number).addLesson(lesson);
                 }
                 else{
-                    listGroups.put(id+":"+number, new Group(id, number, idProffessor, lesson));
+                    listGroups.put(id+":"+number, group);
+                   
                 }
+                     switch(day){
+                        case 'L':
+                            lessonPerDay[0].put(id+":"+number, group);
+                            break;
+                        case 'M':
+                            lessonPerDay[1].put(id+":"+number, group);
+                            break;
+                         case 'W':
+                            lessonPerDay[2].put(id+":"+number, group);
+                            break;
+                        case 'J':
+                            lessonPerDay[3].put(id+":"+number, group);
+                            break;
+                        case 'v':
+                            lessonPerDay[4].put(id+":"+number, group);
+                            break;
+                        case 'S':
+                            lessonPerDay[5].put(id+":"+number, group);
+                            break;
+                        case 'D':
+                            lessonPerDay[6].put(id+":"+number, group);
+                            break;
+                    }
+ 
             }
             scanner.close();
         }

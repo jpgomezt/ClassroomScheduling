@@ -6,6 +6,6 @@ public class Schedule{
     static HashMap<String, Integer> listDistances = Reader.getDistances();
 
     public static void scheduling(){
-
+        
     }
 }
