@@ -8,12 +8,12 @@ public class Reader {
     static HashMap<String, ClassRoom> listClassRooms;
     static HashMap<String, Group> listGroups;
     static HashMap<String, Integer> listDistances;
-    static HashMap<String, Group> lessonPerDay[] = new HashMap<>()[7];
+    static HashMap<String, Group>[] lessonPerDay = new HashMap[7];
     
 
     public static void fillLessons(){
-        for(int i-0; i<lessonPerDay.length; i++){
-            lessonPerDay = new HashMap<String, Group>();
+        for(int i=0; i<lessonPerDay.length; i++){
+            lessonPerDay[i] = new HashMap<String, Group>();
         }
     }
 
@@ -66,7 +66,6 @@ public class Reader {
 
     public static HashMap<String, Group> getGroups() {
         listGroups = new HashMap<>();
-        fillLessons();
         try {
             Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/pa20192.csv"));
             while (scanner.hasNextLine()) {
@@ -87,39 +86,16 @@ public class Reader {
                 String startingTime = lineScanner.next();
                 String endingTime = lineScanner.next();
                 String initialRoom = lineScanner.next();
-                Lesson lesson = new Lesson(day, startingTime, endingTime, initialRoom);
-                Group group = new Group(id, number, idProffessor, lesson);
-                if(listGroups.get(id+":"+number) != null){
-                    listGroups.get(id+":"+number).addLesson(lesson);
-                }
-                else{
-                    listGroups.put(id+":"+number, group);
-                   
-                }
-                     switch(day){
-                        case 'L':
-                            lessonPerDay[0].put(id+":"+number, group);
-                            break;
-                        case 'M':
-                            lessonPerDay[1].put(id+":"+number, group);
-                            break;
-                         case 'W':
-                            lessonPerDay[2].put(id+":"+number, group);
-                            break;
-                        case 'J':
-                            lessonPerDay[3].put(id+":"+number, group);
-                            break;
-                        case 'v':
-                            lessonPerDay[4].put(id+":"+number, group);
-                            break;
-                        case 'S':
-                            lessonPerDay[5].put(id+":"+number, group);
-                            break;
-                        case 'D':
-                            lessonPerDay[6].put(id+":"+number, group);
-                            break;
+                if(!initialRoom.equals("00000")){
+                    Lesson lesson = new Lesson(day, startingTime, endingTime, initialRoom);
+                    Group group = new Group(id, number, idProffessor, lesson);
+                    if(listGroups.get(id+":"+number) != null){
+                        listGroups.get(id+":"+number).addLesson(lesson);
                     }
- 
+                    else{
+                        listGroups.put(id+":"+number, group);
+                    }
+                }
             }
             scanner.close();
         }
@@ -169,7 +145,27 @@ public class Reader {
     }
 
     private static void cleanGroups() {
-        listGroups.entrySet().removeIf(entry -> entry.getValue().getListStudents().isEmpty());
+        fillLessons();
+        Iterator<HashMap.Entry<String,Group>> iter = listGroups.entrySet().iterator();
+        while (iter.hasNext()) {
+            HashMap.Entry<String,Group> entry = iter.next();
+            if(entry.getValue().getListStudents().isEmpty()){
+                iter.remove();
+            }
+            else{
+                for (Lesson l:entry.getValue().getLessons()) {
+                    switch (l.day) {
+                        case 'L' -> lessonPerDay[0].put(entry.getKey(), entry.getValue());
+                        case 'M' -> lessonPerDay[1].put(entry.getKey(), entry.getValue());
+                        case 'W' -> lessonPerDay[2].put(entry.getKey(), entry.getValue());
+                        case 'J' -> lessonPerDay[3].put(entry.getKey(), entry.getValue());
+                        case 'V' -> lessonPerDay[4].put(entry.getKey(), entry.getValue());
+                        case 'S' -> lessonPerDay[5].put(entry.getKey(), entry.getValue());
+                        case 'D' -> lessonPerDay[6].put(entry.getKey(), entry.getValue());
+                    }
+                }
+            }
+        }
     }
 
     public static HashMap<String, Integer> getDistances() {
