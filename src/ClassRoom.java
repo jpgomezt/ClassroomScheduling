@@ -6,12 +6,12 @@ public class ClassRoom{
 
     static HashMap<String, ClassRoom> listClassRooms = new HashMap<>();;
 
-    final String id;
-    final String type;
-    final int block;
-    final int capacity;
-    final boolean access;
-    HashMap<Character, HashMap<String, Group>> bookings;
+    private final String id;
+    private final String type;
+    private final int block;
+    private final int capacity;
+    private final boolean access;
+    private HashMap<Character, HashMap<String, Group>> bookings;
 
     public ClassRoom(String id, String type, int block, int capacity, boolean access) {
         this.id = id;
@@ -23,7 +23,11 @@ public class ClassRoom{
     }
 
     public static void addClass(ClassRoom classroom){
-        listClassRooms.put(classroom.id, classroom);
+        listClassRooms.put(classroom.getId(), classroom);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getType() {

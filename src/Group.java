@@ -1,42 +1,43 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Group {
-    final String id;
-    final String number;
-    final int idProfessor;
-    final ArrayList<Lesson> lessons = new ArrayList<>();
-    HashMap<Integer, Person> listStudents = new HashMap<>();
 
-    public Group(String id, String number, int idProfessor, Lesson lesson) {
-        this.id = id;
+    static HashMap<String, Group> listGroups = new HashMap<>();
+
+    private final String idCourse;
+    private final String number;
+    private final int idProfessor;
+    private HashMap<Integer, Person> listStudents = new HashMap<>();
+
+    public Group(String idCourse, String number, int idProfessor) {
+        this.idCourse = idCourse;
         this.number = number;
         this.idProfessor = idProfessor;
-        addLesson(lesson);
+        addGroup(this);
     }
 
-    public void addLesson(Lesson lesson){
-        this.lessons.add(lesson);
+    public boolean hasPerson(){
+        return this.listStudents.isEmpty();
     }
 
-    public void addPerson(Person p){
-        listStudents.put(p.getId(), p);
+    public static Group getGroup(String key){
+        return listGroups.get(key);
     }
 
-    public String getId() {
-        return id;
+    public static void addGroup(Group group){
+        listGroups.put(group.getIdCourse()+group.getNumber(), group);
+    }
+
+    public String getIdCourse() {
+        return idCourse;
     }
 
     public String getNumber() {
         return number;
     }
 
-    public int getIdProfessor() {
-        return idProfessor;
-    }
-
-    public ArrayList<Lesson> getLessons() {
-        return lessons;
+    public void addPerson(Person p){
+        listStudents.put(p.getId(), p);
     }
 
     public HashMap<Integer, Person> getListStudents() {
