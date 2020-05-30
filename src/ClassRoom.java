@@ -3,6 +3,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class ClassRoom{
+
+    static HashMap<String, ClassRoom> listClassRooms = new HashMap<>();;
+
     final String id;
     final String type;
     final int block;
@@ -16,6 +19,11 @@ public class ClassRoom{
         this.block = block;
         this.capacity = capacity;
         this.access = access;
+        addClass(this);
+    }
+
+    public static void addClass(ClassRoom classroom){
+        listClassRooms.put(classroom.id, classroom);
     }
 
     public String getType() {

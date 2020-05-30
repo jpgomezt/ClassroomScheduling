@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Reader {
-    static HashMap<String, ClassRoom> listClassRooms;
+    static HashMap<String, ClassRoom> listClassRooms = new HashMap<>();;
     static HashMap<String, Group> listGroups;
     static HashMap<String, Integer> listDistances;
     static HashMap<String, Group>[] lessonPerDay = new HashMap[7];
