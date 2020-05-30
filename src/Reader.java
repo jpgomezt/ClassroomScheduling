@@ -77,13 +77,13 @@ public class Reader {
                 }
                 String startingTime = lineScanner.next();
                 String endingTime = lineScanner.next();
-                Lesson lesson = new Lesson(day, startingTime, endingTime);
                 String initialRoom = lineScanner.next();
+                Lesson lesson = new Lesson(day, startingTime, endingTime, initialRoom);
                 if(listGroups.get(id+":"+number) != null){
                     listGroups.get(id+":"+number).addLesson(lesson);
                 }
                 else{
-                    listGroups.put(id+":"+number, new Group(id, number, idProffessor, lesson, initialRoom));
+                    listGroups.put(id+":"+number, new Group(id, number, idProffessor, lesso));
                 }
             }
             scanner.close();

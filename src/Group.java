@@ -6,16 +6,13 @@ public class Group {
     final String number;
     final int idProfessor;
     final ArrayList<Lesson> lessons = new ArrayList<>();
-    final String initialRoom;
-    ClassRoom room;
     HashMap<Integer, Person> listStudents = new HashMap<>();
 
-    public Group(String id, String number, int idProfessor, Lesson lesson, String initialRoom) {
+    public Group(String id, String number, int idProfessor, Lesson lesson) {
         this.id = id;
         this.number = number;
         this.idProfessor = idProfessor;
         addLesson(lesson);
-        this.initialRoom = initialRoom;
     }
 
     public void addLesson(Lesson lesson){
@@ -52,5 +49,14 @@ public class Group {
 
     public HashMap<Integer, Person> getListStudents() {
         return listStudents;
+    }
+
+    public boolean hasImpairment(){
+        for(String key: listStudents.getKeys()){
+            if(listStudents.get(key).getMobility == true){
+                return true;
+            }
+        }
+        return false;
     }
 }
