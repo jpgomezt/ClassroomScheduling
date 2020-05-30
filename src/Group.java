@@ -39,21 +39,13 @@ public class Group {
         return lessons;
     }
 
-    public String getInitialRoom() {
-        return initialRoom;
-    }
-
-    public ClassRoom getRoom() {
-        return room;
-    }
-
     public HashMap<Integer, Person> getListStudents() {
         return listStudents;
     }
 
     public boolean hasImpairment(){
-        for(String key: listStudents.getKeys()){
-            if(listStudents.get(key).getMobility == true){
+        for(Integer key: listStudents.keySet()){
+            if(listStudents.get(key).getMobility()){
                 return true;
             }
         }
