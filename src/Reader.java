@@ -1,11 +1,13 @@
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Reader {
     static HashMap<String, ClassRoom> listClassRooms;
     static HashMap<String, Group> listGroups;
-    static HashMap<Integer, Person> listStudents;
+    static HashMap<String, Integer> listDistances;
 
     public static HashMap<String, ClassRoom> getClassrooms() {
         listClassRooms = new HashMap<>();
@@ -132,11 +134,34 @@ public class Reader {
     }
 
     private static void cleanGroups() {
-        for (String key:listGroups.keySet()) {
-            if(listGroups.get(key).getListStudents().isEmpty()){
-                System.out.println("Quite a " + key);
-                listGroups.remove((String)key);
-            }
-        }
+        listGroups.entrySet().removeIf(entry -> entry.getValue().getListStudents().isEmpty());
     }
+
+    public static HashMap<String, Integer> getDistances() {
+        listDistances = new HashMap<>();
+        try {
+            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/DistanciasBloques.csv"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(",");
+                int initialBlock = lineScanner.nextInt();
+                int finalBlock = lineScanner.nextInt();
+                int distance = lineScanner.nextInt();
+                if(initialBlock<finalBlock){
+                    listDistances.put(Integer.toString(finalBlock) + initialBlock, distance);
+                }
+                else{
+                    listDistances.put(Integer.toString(initialBlock) + finalBlock, distance);
+                }
+            }
+            scanner.close();
+        }
+        catch (Exception e){
+            System.err.println();
+            return null;
+        }
+        return listDistances;
+    }
+
 }
