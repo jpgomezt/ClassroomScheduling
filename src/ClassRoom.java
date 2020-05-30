@@ -23,6 +23,10 @@ public class ClassRoom{
         this.capacity = capacity;
         this.access = access;
     }
+
+    public String getType() {
+        return type;
+    }
 }
 
 

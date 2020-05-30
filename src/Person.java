@@ -1,36 +1,34 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Person {
     final int id;
-    final int mobility;
-    ArrayList<Integer> courses = new ArrayList<>();
+    final boolean impairment;
+    HashMap<String, Group> groups = new HashMap<>();
 
-    public Person(int id, int mobility) {
+    public Person(int id, boolean impairment) {
         this.id = id;
-        this.mobility = mobility;
+        this.impairment = impairment;
     }
 
-    public void addCourses(int courseID) {
-        courses.add(courseID);
+    public void addCourses(Group g) {
+        groups.put(g.getId()+":"+g.getNumber(), g);
     }
 
     public int getId() {
         return id;
     }
 
-    public int getMobility() {
-        return mobility;
+    public boolean getMobility() {
+        return impairment;
     }
 
-    public ArrayList<Integer> getCourses() {
-        return courses;
-    }
 
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", mobility=" + mobility +
+                ", mobility=" + impairment +
                 '}';
     }
 }

@@ -1,11 +1,4 @@
 1. Crear clase aulas
-    -final int id aula
-    -final String type
-    -final intbloque
-    -final intcapacity
-    -bookings*(mapa<key>"dias de la semana"<content>"mapa con hora como key y contenido group")(no entra en constructor)
-    -access(0|1)
-    -typeClass()
     -bool canBooking(group);//mira si hay una clase a esa hora, o proxima dentro del margen
 
 2. Agregar a la clase group listado estudiantes
@@ -15,3 +8,11 @@
 3. Agregar a la clase student listado grupos
 
 4. Agregar a estudiantes metodo para ver si tiene una clase inmediata(recibe un grupo como parametro)
+
+
+
+
+Para tener en cuentas:
+Colisiones en classrooms : 01402
+                           01402
+                           18600

@@ -3,9 +3,9 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        //HashMap<Integer, Person> listStudents = Reader.getStudens();
         HashMap<String, ClassRoom> listClassRooms = Reader.getClassrooms();
-        if(listClassRooms != null){
+        HashMap<String, Group> listGroups = Reader.getGroups();
+        if(listClassRooms != null && listGroups != null){
             System.out.println("todo bien");
         }
         else{
