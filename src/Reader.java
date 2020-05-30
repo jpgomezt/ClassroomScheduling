@@ -83,7 +83,7 @@ public class Reader {
                     listGroups.get(id+":"+number).addLesson(lesson);
                 }
                 else{
-                    listGroups.put(id+":"+number, new Group(id, number, idProffessor, lesso));
+                    listGroups.put(id+":"+number, new Group(id, number, idProffessor, lesson));
                 }
             }
             scanner.close();
