@@ -4,7 +4,6 @@ public class Lesson {
 
     static HashMap<String, Lesson>[] lessonPerDay = new HashMap[7];
     static boolean check = false;
-
     private final char day;
     private final String startingTime;
     private final String endingTime;
@@ -26,6 +25,12 @@ public class Lesson {
 
     public String getIdGroup() {
         return idGroup;
+    }
+
+    public Lesson[] nextLessons(){
+        for (Person p: Group.listGroups.get(idGroup).getListStudents().values()) {
+
+        }
     }
 
     public static void addLesson(Lesson lesson){

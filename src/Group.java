@@ -16,6 +16,10 @@ public class Group {
         addGroup(this);
     }
 
+    public HashMap<Integer, Person> getListStudents() {
+        return listStudents;
+    }
+
     public boolean hasPerson(){
         return this.listStudents.isEmpty();
     }
@@ -38,10 +42,6 @@ public class Group {
 
     public void addPerson(Person p){
         listStudents.put(p.getId(), p);
-    }
-
-    public HashMap<Integer, Person> getListStudents() {
-        return listStudents;
     }
 
     public boolean hasImpairment(){
