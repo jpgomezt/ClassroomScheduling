@@ -34,13 +34,27 @@ public class Lesson {
             check = true;
         }
         switch (lesson.day) {
-            case 'L' -> lessonPerDay[0].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'M' -> lessonPerDay[1].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'W' -> lessonPerDay[2].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'J' -> lessonPerDay[3].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'V' -> lessonPerDay[4].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'S' -> lessonPerDay[5].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
-            case 'D' -> lessonPerDay[6].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+            case 'L':
+                lessonPerDay[0].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'M':
+                lessonPerDay[1].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'W':
+                lessonPerDay[2].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'J':
+                lessonPerDay[3].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'V':
+                lessonPerDay[4].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'S':
+                lessonPerDay[5].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
+            case 'D':
+                lessonPerDay[6].put(lesson.getIdGroup()+lesson.getStartingTime(), lesson);
+                break;
         }
     }
 
