@@ -4,13 +4,12 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Reader {
-    static HashMap<String, Integer> listDistances;
 
     public static void read(){
         getClassrooms();
         getGroups();
         getStudens();
-        getDistances();
+        ClassRoom.getDistances();
     }
 
     public static void getClassrooms() {
@@ -123,32 +122,4 @@ public class Reader {
             System.err.println(e);
         }
     }
-
-    public static HashMap<String, Integer> getDistances() {
-        listDistances = new HashMap<>();
-        try {
-            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/DistanciasBloques.csv"));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Scanner lineScanner = new Scanner(line);
-                lineScanner.useDelimiter(",");
-                int initialBlock = lineScanner.nextInt();
-                int finalBlock = lineScanner.nextInt();
-                int distance = lineScanner.nextInt();
-                if(initialBlock<finalBlock){
-                    listDistances.put(Integer.toString(finalBlock) + initialBlock, distance);
-                }
-                else{
-                    listDistances.put(Integer.toString(initialBlock) + finalBlock, distance);
-                }
-            }
-            scanner.close();
-        }
-        catch (Exception e){
-            System.err.println();
-            return null;
-        }
-        return listDistances;
-    }
-
 }
