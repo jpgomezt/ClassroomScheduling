@@ -12,16 +12,53 @@ public class Schedule{
                 lessonsTime(i, actualTime);
                 while(!order.isEmpty()){
                     Lesson actual = order.pop();
-                    System.out.print(actual);
-                    actual.setVisit(true);
                     Lesson[] next = actual.nextLessons();
+                    boolean hasNext = false;
                     for(Lesson nextAnalisis : next){
+                        hasNext = true;
                         if(!nextAnalisis.isVisited()){
-                            order.push(nextAnalisis);
+                            nextAnalisis.addPrevLesson(actual);
+                        }
+                    }
+                    if(ClassRoom.listClassRooms.get(actual.getClassroom()) == null){
+                        actual.setNewClassroom(actual.getClassroom());
+                        actual.setVisit(true);
+                        System.out.print(actual);
+                    }
+                    else{
+                        String type = ClassRoom.listClassRooms.get(actual.getClassroom()).getType();
+                        int capacity = Group.listGroups.get(actual.getIdGroup()).getListStudents().size();
+                        boolean specialRoom = Group.listGroups.get(actual.getIdGroup()).hasImpairment();
+                        if(!actual.hasPrevLesson() && hasNext){
+                            actual.setNewClassroom(ClassRoom.getFirstClassroom(type, capacity, specialRoom, actual));
+                            actual.setVisit(true);
+                            System.out.print(actual);
+                        }
+                        else if (actual.hasPrevLesson()) {
+                            actual.setNewClassroom(ClassRoom.getClassroom(type, capacity, specialRoom, actual));
+                            actual.setVisit(true);
+                            System.out.print(actual);
                         }
                     }
                 }
-
+                if(actualTime % 100 ==30){
+                    actualTime += 70;
+                }else{
+                    actualTime+= 30;
+                }
+            }
+            actualTime = 600;
+            while(actualTime <= 2100){
+                lessonsTime(i, actualTime);
+                while(!order.isEmpty()){
+                    Lesson actual = order.pop();
+                    String type = ClassRoom.listClassRooms.get(actual.getClassroom()).getType();
+                    int capacity = Group.listGroups.get(actual.getIdGroup()).getListStudents().size();
+                    boolean specialRoom = Group.listGroups.get(actual.getIdGroup()).hasImpairment();
+                    actual.setNewClassroom(ClassRoom.getFirstClassroom(type, capacity, specialRoom, actual));
+                    actual.setVisit(true);
+                    System.out.print(actual);
+                }
                 if(actualTime % 100 ==30){
                     actualTime += 70;
                 }else{

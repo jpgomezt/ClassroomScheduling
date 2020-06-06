@@ -21,7 +21,7 @@ public class Group {
     }
 
     public boolean hasPerson(){
-        return this.listStudents.isEmpty();
+        return !this.listStudents.isEmpty();
     }
 
     public static Group getGroup(String key){

@@ -9,6 +9,7 @@ public class Reader {
         getClassrooms();
         getGroups();
         getStudens();
+        Lesson.cleanLesson();
         ClassRoom.getDistances();
     }
 
@@ -109,6 +110,14 @@ public class Reader {
                 int id = lineScanner.nextInt();
                 String idCourse = lineScanner.next();
                 String numberGroup = lineScanner.next();
+                if(numberGroup.length()<3){
+                    if(numberGroup.length()==1){
+                        numberGroup = "00" + numberGroup;
+                    }
+                    else{
+                        numberGroup = "0" + numberGroup;
+                    }
+                }
                 Group group = Group.getGroup(idCourse+numberGroup);
                 Person person = Person.getPerson(id);
                 if(group != null) {
