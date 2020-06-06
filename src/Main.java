@@ -1,18 +1,23 @@
+import java.io.File;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
         Reader.read();
         Schedule.scheduling();
-        /*
-        if(ClassRoom.listClassRooms != null && Group.listGroups != null && Person.listPerson != null && Lesson.lessonPerDay != null){
-            Schedule.scheduling();
-            System.out.println("todo benne");
+        try{
+            PrintStream archSalida = new PrintStream(new File("mat20192new.csv"));
+            for (Lesson lesson:Lesson.uselessShit) {
+                archSalida.println(lesson);
+            }
+            for(int i = 0; i <= 6; i++){
+                for(Lesson lesson: Lesson.lessonPerDay[i].values()){
+                    archSalida.println(lesson);
+                }
+            }
+        }catch (Exception e){
+            System.out.print(e);
         }
-        else{
-            System.out.println("Algo fallo");
-        }
-         */
-
     }
 }

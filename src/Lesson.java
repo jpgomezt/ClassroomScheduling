@@ -25,10 +25,13 @@ public class Lesson {
         this.classroom = classroom;
         this.idGroup = idGroup;
         this.idProfesor = idProfesor;
-        addLesson(this);
+        if(!(classroom.equals("00000"))){
+            addLesson(this);
+        }
     }
 
     public String getNewClassroom() {
+        if(this.newClassroom == null){return "00000";}
         return newClassroom;
     }
 
@@ -186,7 +189,7 @@ public class Lesson {
     }
     @Override
     public String toString(){
-        return this.idGroup.substring(0,6) +","+ this.idGroup.substring(6) +"," +this.idProfesor + "," + this.getDayString() + "," + this.startingTime + ","+ this.endingTime +","+this.newClassroom;
+        return this.idGroup.substring(0,6) +","+ this.idGroup.substring(6) +"," +this.idProfesor + "," + this.getDayString() + "," + this.startingTime + ","+ this.endingTime +","+this.getNewClassroom();
     }
     public static void cleanLesson(){
         for (int i = 0; i < 7; i++){

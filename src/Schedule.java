@@ -7,7 +7,6 @@ public class Schedule{
         order = new Stack<>();
         for(int i = 0; i <= 6; i++){
             int actualTime = 600;
-            System.out.println("Day: "+i);
             while(actualTime <= 2100){
                 lessonsTime(i, actualTime);
                 while(!order.isEmpty()){
@@ -23,7 +22,6 @@ public class Schedule{
                     if(ClassRoom.listClassRooms.get(actual.getClassroom()) == null){
                         actual.setNewClassroom(actual.getClassroom());
                         actual.setVisit(true);
-                        System.out.print(actual);
                     }
                     else{
                         String type = ClassRoom.listClassRooms.get(actual.getClassroom()).getType();
@@ -32,12 +30,10 @@ public class Schedule{
                         if(!actual.hasPrevLesson() && hasNext){
                             actual.setNewClassroom(ClassRoom.getFirstClassroom(type, capacity, specialRoom, actual));
                             actual.setVisit(true);
-                            System.out.print(actual);
                         }
                         else if (actual.hasPrevLesson()) {
                             actual.setNewClassroom(ClassRoom.getClassroom(type, capacity, specialRoom, actual));
                             actual.setVisit(true);
-                            System.out.print(actual);
                         }
                     }
                 }
@@ -57,7 +53,6 @@ public class Schedule{
                     boolean specialRoom = Group.listGroups.get(actual.getIdGroup()).hasImpairment();
                     actual.setNewClassroom(ClassRoom.getFirstClassroom(type, capacity, specialRoom, actual));
                     actual.setVisit(true);
-                    System.out.print(actual);
                 }
                 if(actualTime % 100 ==30){
                     actualTime += 70;
