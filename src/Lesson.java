@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Lesson {
 
     static HashMap<String, Lesson>[] lessonPerDay = new HashMap[7];
+    private boolean isVisited = false;
     static boolean check = false;
     private final char day;
     private final String startingTime;
@@ -23,16 +25,56 @@ public class Lesson {
         return startingTime;
     }
 
+    public int getIntStart(){
+        String start = startingTime;
+        start = start.replaceAll(":", "");
+        // System.out.println(start);
+        return Integer.parseInt(start);
+    }
+
     public String getIdGroup() {
         return idGroup;
     }
 
     public Lesson[] nextLessons(){
+        ArrayList<Lesson> nextLessons = new ArrayList<>();
         for (Person p: Group.listGroups.get(idGroup).getListStudents().values()) {
-
+            for(Group g : p.getGroups().values()){
+                Lesson l = lessonPerDay[this.getDay()].get(g.getIdCourse() + g.getNumber() + this.endingTime);
+                if( l != null && !nextLessons.contains(l)){
+                    nextLessons.add(l);
+                }
+            }
         }
+        /*System.out.println("Actual lesson: "+this + "Next lessons: ");
+        for(Lesson less: nextLessons){
+            System.out.print("\t"+less);
+        }*/
+        Lesson arr[] = new Lesson[nextLessons.size()];
+        arr = nextLessons.toArray(arr);
+        return arr;
     }
 
+    public boolean isVisited(){
+        return this.isVisited;
+    }
+
+    public void setVisit(boolean val){
+        this.isVisited = val;
+    }
+
+    public int getDay(){
+        switch(this.day){
+            case 'L': return 0;
+            case 'M': return 1;
+            case 'W': return 2;
+            case 'J': return 3;
+            case 'V': return 4;
+            case 'S': return 5;
+            case 'D': return 6;
+        }
+        return -1;
+    }
     public static void addLesson(Lesson lesson){
         if(!check){
             fillLessons();
@@ -69,6 +111,10 @@ public class Lesson {
         }
     }
 
+    @Override
+    public String toString(){
+        return "Id Group: " + this.idGroup +",Day : "+ day +", Start time: " + this.startingTime + ", End time: " + this.endingTime+"\n";
+    }
     public static void cleanLesson(){
         for (int i = 0; i < 7; i++){
          HashMap<String,Lesson> hashMap= lessonPerDay[i];

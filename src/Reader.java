@@ -14,7 +14,7 @@ public class Reader {
 
     public static void getClassrooms() {
         try {
-            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/aulas.csv"));
+            Scanner scanner = new Scanner(new File("/home/salzatec1/Documents/ClassroomScheduling/CSV/aulas.csv"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
@@ -55,7 +55,7 @@ public class Reader {
 
     public static void getGroups() {
         try {
-            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/pa20192.csv"));
+            Scanner scanner = new Scanner(new File("/home/salzatec1/Documents/ClassroomScheduling/CSV/pa20192.csv"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
@@ -88,7 +88,7 @@ public class Reader {
 
     private static void getStudens() {
         try {
-            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/estudiantes.csv"));
+            Scanner scanner = new Scanner(new File("/home/salzatec1/Documents/ClassroomScheduling/CSV/estudiantes.csv"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
@@ -101,7 +101,7 @@ public class Reader {
                 new Person(id, impairment);
             }
             scanner.close();
-            scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/mat20192.csv"));
+            scanner = new Scanner(new File("/home/salzatec1/Documents/ClassroomScheduling/CSV/mat20192.csv"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);

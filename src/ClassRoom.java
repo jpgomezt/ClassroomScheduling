@@ -26,7 +26,7 @@ public class ClassRoom{
     public static void getDistances() {
         listDistances = new HashMap<>();
         try {
-            Scanner scanner = new Scanner(new File("/Users/jpgomezt/Library/Mobile Documents/com~apple~CloudDocs/EAFIT/Tercer Semestre/Algoritmos/ClassroomScheduling/CSV/DistanciasBloques.csv"));
+            Scanner scanner = new Scanner(new File("/home/salzatec1/Documents/ClassroomScheduling/CSV/DistanciasBloques.csv"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
@@ -49,11 +49,7 @@ public class ClassRoom{
     }
 
     public static ClassRoom bestClassRoom(int capacity, boolean specialRoom, Lesson initLesson, String[] typesRequired){
-        if()
-    }
-
-    public static int bestBlock(){
-
+        return null;
     }
 
     public static void addClass(ClassRoom classroom){

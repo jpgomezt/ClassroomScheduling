@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Reader.read();
         if(ClassRoom.listClassRooms != null && Group.listGroups != null && Person.listPerson != null && Lesson.lessonPerDay != null){
+            Schedule.scheduling();
             System.out.println("todo bien");
         }
         else{

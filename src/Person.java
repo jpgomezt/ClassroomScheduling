@@ -18,6 +18,10 @@ public class Person {
         return id;
     }
 
+    public HashMap<String, Group>  getGroups(){
+        return this.groups;
+    }
+
     public static void addPerson(Person person){
         listPerson.put(person.getId(), person);
     }
