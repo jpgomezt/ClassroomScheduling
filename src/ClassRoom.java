@@ -1,3 +1,4 @@
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,51 +97,73 @@ public class ClassRoom{
     }
 
     public static String getFirstClassroom(String type, int numPersons, boolean specialRoom, Lesson lesson){
-        String idCurrent = "";
-        int distanceToCapacity = Integer.MAX_VALUE;
-        int capacity = Integer.MAX_VALUE;
+        String idCurrentHardRestriction = "";
+        int distanceToCapacityHardRestriction = Integer.MAX_VALUE;
+        int capacityHardRestriction = Integer.MAX_VALUE;
+        String idCurrentSoftRestriction = "";
+        int distanceToCapacitySoftRestriction = Integer.MAX_VALUE;
+        int capacitySoftRestriction = Integer.MAX_VALUE;
         for(ClassRoom cr: listClassRooms.values()){
-            if(!specialRoom || cr.access){
-                if((Math.abs(cr.capacity - numPersons) < distanceToCapacity) && (type.equals(cr.getType())) && !cr.isBooked(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd())){
-                    idCurrent = cr.getId();
-                    distanceToCapacity = Math.abs(cr.capacity - numPersons);
-                    capacity = cr.capacity;
+            if(!cr.isBooked(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd())){
+                if((Math.abs(cr.capacity - numPersons) < distanceToCapacityHardRestriction) && (type.equals(cr.getType())) && (!specialRoom || cr.access)){
+                    idCurrentHardRestriction = cr.getId();
+                    distanceToCapacityHardRestriction = Math.abs(cr.capacity - numPersons);
+                    capacityHardRestriction = cr.capacity;
+                }
+                if((Math.abs(cr.capacity - numPersons) < distanceToCapacitySoftRestriction) && (type.equals(cr.getType()))){
+                    idCurrentSoftRestriction = cr.getId();
+                    distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
+                    capacitySoftRestriction = cr.capacity;
                 }
             }
         }
-        if(idCurrent.length()==0){
-            ClassRoom.listClassRooms.get(lesson.getClassroom()).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
-            return lesson.getClassroom();
+        if(idCurrentHardRestriction.length()==0){
+            ClassRoom.listClassRooms.get(idCurrentSoftRestriction).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
+            return idCurrentSoftRestriction;
         }
         else {
-            ClassRoom.listClassRooms.get(idCurrent).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
-            return idCurrent;
+            ClassRoom.listClassRooms.get(idCurrentHardRestriction).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
+            return idCurrentHardRestriction;
         }
     }
 
     public static String getClassroom(String type, int numPersons, boolean specialRoom, Lesson lesson){
-        String idCurrent = "";
-        int distanceToCapacity = Integer.MAX_VALUE;
-        int capacity = Integer.MAX_VALUE;
-        int distanceRecorrida = Integer.MAX_VALUE;
+        String idCurrentHardRestriction = "";
+        int distanceToCapacityHardRestriction = Integer.MAX_VALUE;
+        int capacityHardRestriction = Integer.MAX_VALUE;
+        int distanceRecorridaHardRestriction = Integer.MAX_VALUE;
+        String idCurrentSoftRestriction = "";
+        int distanceToCapacitySoftRestriction = Integer.MAX_VALUE;
+        int capacitySoftRestriction = Integer.MAX_VALUE;
+        int distanceRecorridaSoftRestriction = Integer.MAX_VALUE;
         for(ClassRoom cr: listClassRooms.values()){
-            if(lesson.distanceRecorrida(cr) < distanceRecorrida){
-                if(!specialRoom || cr.access){
-                    if((Math.abs(cr.capacity - numPersons) < distanceToCapacity) && (type.equals(cr.getType())) && !cr.isBooked(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd())){
-                        idCurrent = cr.getId();
-                        distanceToCapacity = Math.abs(cr.capacity - numPersons);
-                        capacity = cr.capacity;
+            int newDistanceRecorrida = lesson.distanceRecorrida(cr);
+            if(!cr.isBooked(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd())){
+                if(newDistanceRecorrida < distanceRecorridaHardRestriction){
+                    if((Math.abs(cr.capacity - numPersons) < distanceToCapacityHardRestriction) && (type.equals(cr.getType())) && (!specialRoom || cr.access)){
+                        idCurrentHardRestriction = cr.getId();
+                        distanceToCapacityHardRestriction = Math.abs(cr.capacity - numPersons);
+                        capacityHardRestriction = cr.capacity;
+                        distanceRecorridaHardRestriction = newDistanceRecorrida;
+                    }
+                }
+                if(newDistanceRecorrida < distanceRecorridaSoftRestriction) {
+                    if((Math.abs(cr.capacity - numPersons) < distanceToCapacitySoftRestriction) && (type.equals(cr.getType()))){
+                        idCurrentSoftRestriction = cr.getId();
+                        distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
+                        capacitySoftRestriction = cr.capacity;
+                        distanceRecorridaSoftRestriction = newDistanceRecorrida;
                     }
                 }
             }
         }
-        if(idCurrent.length()==0){
-            ClassRoom.listClassRooms.get(lesson.getClassroom()).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
-            return lesson.getClassroom();
+        if(idCurrentHardRestriction.length()==0){
+            ClassRoom.listClassRooms.get(idCurrentSoftRestriction).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
+            return idCurrentSoftRestriction;
         }
         else {
-            ClassRoom.listClassRooms.get(idCurrent).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
-            return idCurrent;
+            ClassRoom.listClassRooms.get(idCurrentHardRestriction).setBookings(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd());
+            return idCurrentHardRestriction;
         }
     }
 }

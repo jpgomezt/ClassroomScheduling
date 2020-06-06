@@ -73,11 +73,11 @@ public class Reader {
                 String startingTime = lineScanner.next();
                 String endingTime = lineScanner.next();
                 String initialRoom = lineScanner.next();
-                if(!initialRoom.equals("00000")){
+                if(initialRoom.equals("00000")){
+                    Lesson.uselessShit.add(new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor));
+                }else{
                     new Group(idCourse, numberGroup);
                     new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor);
-                }else{
-                    Lesson.uselessShit.add(new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor));
                 }
             }
             scanner.close();

@@ -12,7 +12,7 @@ public class Lesson {
     private final char day;
     private final String startingTime;
     private final String endingTime;
-    private String classroom;
+    private final String classroom;
     private final String idGroup;
     private ArrayList<Lesson> prevLessons = new ArrayList<>();
     private String newClassroom;

@@ -7,7 +7,7 @@ public class Main {
         Reader.read();
         Schedule.scheduling();
         try{
-            PrintStream archSalida = new PrintStream(new File("mat20192new.csv"));
+            PrintStream archSalida = new PrintStream(new File("pa20192new.csv"));
             for (Lesson lesson:Lesson.uselessShit) {
                 archSalida.println(lesson);
             }
@@ -17,7 +17,7 @@ public class Main {
                 }
             }
         }catch (Exception e){
-            System.out.print(e);
+            System.out.print("There was a problem writting the file");
         }
     }
 }
