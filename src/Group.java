@@ -6,13 +6,11 @@ public class Group {
 
     private final String idCourse;
     private final String number;
-    private final int idProfessor;
     private HashMap<Integer, Person> listStudents = new HashMap<>();
 
-    public Group(String idCourse, String number, int idProfessor) {
+    public Group(String idCourse, String number) {
         this.idCourse = idCourse;
         this.number = number;
-        this.idProfessor = idProfessor;
         addGroup(this);
     }
 

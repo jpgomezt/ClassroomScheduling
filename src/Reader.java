@@ -1,6 +1,4 @@
 import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Reader {
@@ -76,8 +74,10 @@ public class Reader {
                 String endingTime = lineScanner.next();
                 String initialRoom = lineScanner.next();
                 if(!initialRoom.equals("00000")){
-                    new Group(idCourse, numberGroup, idProffessor);
-                    new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup);
+                    new Group(idCourse, numberGroup);
+                    new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor);
+                }else{
+                    Lesson.uselessShit.add(new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor));
                 }
             }
             scanner.close();

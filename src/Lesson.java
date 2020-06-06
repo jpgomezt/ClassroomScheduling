@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Lesson {
 
     static HashMap<String, Lesson>[] lessonPerDay = new HashMap[7];
+    static ArrayList<Lesson> uselessShit = new ArrayList<>();
     private boolean isVisited = false;
     static boolean check = false;
     private final char day;
@@ -16,13 +16,15 @@ public class Lesson {
     private final String idGroup;
     private ArrayList<Lesson> prevLessons = new ArrayList<>();
     private String newClassroom;
+    private int idProfesor;
 
-    public Lesson(char day, String startingTime, String endingTime, String classroom, String idGroup) {
+    public Lesson(char day, String startingTime, String endingTime, String classroom, String idGroup, int idProfesor) {
         this.day = day;
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.classroom = classroom;
         this.idGroup = idGroup;
+        this.idProfesor = idProfesor;
         addLesson(this);
     }
 
@@ -30,6 +32,9 @@ public class Lesson {
         return newClassroom;
     }
 
+    public int getIdProfesor(){
+        return this.idProfesor;
+    }
     public void setNewClassroom(String newClassroom) {
         this.newClassroom = newClassroom;
     }
@@ -167,10 +172,21 @@ public class Lesson {
             lessonPerDay[i] = new HashMap<String, Lesson>();
         }
     }
-
+    public String getDayString(){
+        switch(this.day){
+            case 'L': return "lunes";
+            case 'M': return "martes";
+            case 'W': return "miércoles";
+            case 'V': return "viernes";
+            case 'J': return "jueves";
+            case 'S': return "sábado";
+            case 'D': return "domingo";
+        }
+        return "Pailas";
+    }
     @Override
     public String toString(){
-        return "Id Group: " + this.idGroup +",Day : "+ day +", Start time: " + this.startingTime + ", End time: " + this.endingTime+ ", New Classroom: "+ this.newClassroom +"\n";
+        return this.idGroup.substring(0,6) +","+ this.idGroup.substring(6) +"," +this.idProfesor + "," + this.getDayString() + "," + this.startingTime + ","+ this.endingTime +","+this.newClassroom;
     }
     public static void cleanLesson(){
         for (int i = 0; i < 7; i++){
@@ -181,10 +197,12 @@ public class Lesson {
                 if(Group.getGroup(entry.getValue().getIdGroup()) != null) {
                     if (!Group.getGroup(entry.getValue().getIdGroup()).hasPerson()) {
                         Group.listGroups.remove(entry.getValue().getIdGroup());
+                        Lesson.uselessShit.add(entry.getValue());
                         it.remove();
                     }
                 }
                 else{
+                    Lesson.uselessShit.add(entry.getValue());
                     it.remove();
                 }
             }
