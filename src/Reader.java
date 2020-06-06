@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public class Reader {
 
+    /**
+     * This method read all the files necessary for the proyect
+     * and clenas unnecesary data
+     */
     public static void read(){
         getClassrooms();
         getGroups();
@@ -11,7 +15,10 @@ public class Reader {
         ClassRoom.getDistances();
     }
 
-    public static void getClassrooms() {
+    /**
+     * This method read the file aulas.csv and recollects all its data
+     */
+    private static void getClassrooms() {
         try {
             Scanner scanner = new Scanner(new File("aulas.csv"));
             while (scanner.hasNextLine()) {
@@ -44,6 +51,7 @@ public class Reader {
                     access = true;
                 }
                 new ClassRoom(id, type, block, capacity, access);
+                lineScanner.close();
             }
             scanner.close();
         }
@@ -52,7 +60,10 @@ public class Reader {
         }
     }
 
-    public static void getGroups() {
+    /**
+     * This method read the file pa20292.csv and recollects all its data
+     */
+    private static void getGroups() {
         try {
             Scanner scanner = new Scanner(new File("pa20192.csv"));
             while (scanner.hasNextLine()) {
@@ -74,11 +85,12 @@ public class Reader {
                 String endingTime = lineScanner.next();
                 String initialRoom = lineScanner.next();
                 if(initialRoom.equals("00000")){
-                    Lesson.uselessShit.add(new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor));
+                    Lesson.irrelevantData.add(new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor));
                 }else{
                     new Group(idCourse, numberGroup);
                     new Lesson(day, startingTime, endingTime, initialRoom, idCourse+numberGroup, idProffessor);
                 }
+                lineScanner.close();
             }
             scanner.close();
         }
@@ -87,6 +99,9 @@ public class Reader {
         }
     }
 
+    /**
+     * This method read the file estudiantes.csv and recollects all its data
+     */
     private static void getStudens() {
         try {
             Scanner scanner = new Scanner(new File("estudiantes.csv"));
@@ -100,6 +115,7 @@ public class Reader {
                     impairment = true;
                 }
                 new Person(id, impairment);
+                lineScanner.close();
             }
             scanner.close();
             scanner = new Scanner(new File("mat20192.csv"));
@@ -124,6 +140,7 @@ public class Reader {
                     group.addPerson(person);
                     person.addCourses(group);
                 }
+                lineScanner.close();
             }
             scanner.close();
         }

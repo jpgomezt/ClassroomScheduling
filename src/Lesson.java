@@ -5,59 +5,106 @@ import java.util.Map;
 
 public class Lesson {
 
+    //Map with lessons each day
     static HashMap<String, Lesson>[] lessonPerDay = new HashMap[7];
-    static ArrayList<Lesson> uselessShit = new ArrayList<>();
+    //Map with the lessons that are classroom 00000, or that doesnt have students
+    static ArrayList<Lesson> irrelevantData = new ArrayList<>();
+    //check if a lesson was visited
     private boolean isVisited = false;
-    static boolean check = false;
+    //Helper for lessonsPerDay
+    private static boolean check = false;
+    //Day of the lesson
     private final char day;
+    //start time of the lesson
     private final String startingTime;
+    //end time of the lesson
     private final String endingTime;
+    //Initial classroom it had schedule
     private final String classroom;
+    //Id of the group
     private final String idGroup;
-    private ArrayList<Lesson> prevLessons = new ArrayList<>();
+    //Lessons that this lesson depends on
+    private final ArrayList<Lesson> prevLessons = new ArrayList<>();
+    //classroom we schedule
     private String newClassroom;
-    private int idProfesor;
+    //id of the professor
+    private final int idProfessor;
 
-    public Lesson(char day, String startingTime, String endingTime, String classroom, String idGroup, int idProfesor) {
+    /**
+     * Constructor of Lesson
+     * @param day char
+     * @param startingTime String
+     * @param endingTime String
+     * @param classroom String
+     * @param idGroup String
+     * @param idProfessor int
+     */
+    public Lesson(char day, String startingTime, String endingTime, String classroom, String idGroup, int idProfessor) {
         this.day = day;
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.classroom = classroom;
         this.idGroup = idGroup;
-        this.idProfesor = idProfesor;
+        this.idProfessor = idProfessor;
         if(!(classroom.equals("00000"))){
             addLesson(this);
         }
     }
 
+    /**
+     * Getter of the newClassroom
+     * @return  String
+     */
     public String getNewClassroom() {
         if(this.newClassroom == null){return "00000";}
         return newClassroom;
     }
 
-    public int getIdProfesor(){
-        return this.idProfesor;
-    }
+    /**
+     * Setter for a new classroom
+     * @param newClassroom String
+     */
     public void setNewClassroom(String newClassroom) {
         this.newClassroom = newClassroom;
     }
 
+    /**
+     * Getter for de day in char
+     * @return char
+     */
     public char getCharDay(){
         return this.day;
     }
 
+    /**
+     * Getter of the initial classroom
+     * @return String
+     */
     public String getClassroom() {
         return classroom;
     }
 
+    /**
+     * Adds Previous Lessons to the map
+     * @param lesson Lesson
+     */
     public void addPrevLesson(Lesson lesson){
         this.prevLessons.add(lesson);
     }
 
+    /**
+     * Checks if this lesson depends on prev lessons
+     * @return boolean
+     */
     public boolean hasPrevLesson(){
         return !this.prevLessons.isEmpty();
     }
 
+    /**
+     * Check the distance from one lesson to this
+     * @param cr ClassRoom
+     * @return int
+     */
     public int distanceRecorrida(ClassRoom cr){
         int distanceRecorrida = 0;
         for (Lesson lesson:this.prevLessons) {
@@ -79,10 +126,18 @@ public class Lesson {
         return distanceRecorrida;
     }
 
+    /**
+     * Getter of starting time
+     * @return String
+     */
     public String getStartingTime() {
         return this.startingTime;
     }
 
+    /**
+     * Getter of starting time in int
+     * @return int
+     */
     public int getIntStart(){
         String start = this.startingTime;
         start = start.replaceAll(":", "");
@@ -90,6 +145,10 @@ public class Lesson {
         return Integer.parseInt(start);
     }
 
+    /**
+     * Getter of ending time in int
+     * @return int
+     */
     public int getIntEnd(){
         String end = this.endingTime;
         end = end.replaceAll(":", "");
@@ -97,10 +156,18 @@ public class Lesson {
         return Integer.parseInt(end);
     }
 
+    /**
+     * Getter of id
+     * @return String
+     */
     public String getIdGroup() {
         return this.idGroup;
     }
 
+    /**
+     * Getter of next lessons
+     * @return Lessons[]
+     */
     public Lesson[] nextLessons(){
         ArrayList<Lesson> nextLessons = new ArrayList<>();
         for (Person p: Group.listGroups.get(this.idGroup).getListStudents().values()) {
@@ -111,23 +178,31 @@ public class Lesson {
                 }
             }
         }
-        /*System.out.println("Actual lesson: "+this + "Next lessons: ");
-        for(Lesson less: nextLessons){
-            System.out.print("\t"+less);
-        }*/
-        Lesson arr[] = new Lesson[nextLessons.size()];
+        Lesson[] arr = new Lesson[nextLessons.size()];
         arr = nextLessons.toArray(arr);
         return arr;
     }
 
+    /**
+     * Check if a lesson is visited
+     * @return boolean
+     */
     public boolean isVisited(){
         return this.isVisited;
     }
 
+    /**
+     * Setter for visited
+     * @param val boolean
+     */
     public void setVisit(boolean val){
         this.isVisited = val;
     }
 
+    /**
+     * Getter of day in int
+     * @return int
+     */
     public int getDay(){
         switch(this.day){
             case 'L': return 0;
@@ -140,6 +215,11 @@ public class Lesson {
         }
         return -1;
     }
+
+    /**
+     * Add lesson to map
+     * @param lesson Lesson
+     */
     public static void addLesson(Lesson lesson){
         if(!check){
             fillLessons();
@@ -170,11 +250,19 @@ public class Lesson {
         }
     }
 
+    /**
+     * Fill the array of lessonsPerDay
+     */
     public static void fillLessons(){
         for(int i=0; i<lessonPerDay.length; i++){
             lessonPerDay[i] = new HashMap<String, Lesson>();
         }
     }
+
+    /**
+     * Getter of day in String
+     * @return String
+     */
     public String getDayString(){
         switch(this.day){
             case 'L': return "lunes";
@@ -187,10 +275,19 @@ public class Lesson {
         }
         return "Pailas";
     }
+
+    /**
+     * toString method
+     * @return String
+     */
     @Override
     public String toString(){
-        return this.idGroup.substring(0,6) +","+ this.idGroup.substring(6) +"," +this.idProfesor + "," + this.getDayString() + "," + this.startingTime + ","+ this.endingTime +","+this.getNewClassroom();
+        return this.idGroup.substring(0,6) +","+ this.idGroup.substring(6) +"," +this.idProfessor + "," + this.getDayString() + "," + this.startingTime + ","+ this.endingTime +","+this.getNewClassroom();
     }
+
+    /**
+     * Cleans lessons that are not relevant
+     */
     public static void cleanLesson(){
         for (int i = 0; i < 7; i++){
             HashMap<String, Lesson> map = lessonPerDay[i];
@@ -200,12 +297,12 @@ public class Lesson {
                 if(Group.getGroup(entry.getValue().getIdGroup()) != null) {
                     if (!Group.getGroup(entry.getValue().getIdGroup()).hasPerson()) {
                         Group.listGroups.remove(entry.getValue().getIdGroup());
-                        Lesson.uselessShit.add(entry.getValue());
+                        Lesson.irrelevantData.add(entry.getValue());
                         it.remove();
                     }
                 }
                 else{
-                    Lesson.uselessShit.add(entry.getValue());
+                    Lesson.irrelevantData.add(entry.getValue());
                     it.remove();
                 }
             }
