@@ -103,14 +103,42 @@ public class ClassRoom{
         String idCurrentSoftRestriction = "";
         int distanceToCapacitySoftRestriction = Integer.MAX_VALUE;
         int capacitySoftRestriction = Integer.MAX_VALUE;
+        boolean goodAlocatedSoft = false;
+        boolean goodAlocatedHard = false;
         for(ClassRoom cr: listClassRooms.values()){
             if(!cr.isBooked(lesson.getCharDay(), lesson.getIntStart(), lesson.getIntEnd())){
-                if((Math.abs(cr.capacity - numPersons) < distanceToCapacityHardRestriction) && (type.equals(cr.getType())) && (!specialRoom || cr.access)){
+                if(cr.capacity >= numPersons && type.equals(cr.getType()) && (!specialRoom || cr.access)  && !goodAlocatedHard){
+                    idCurrentHardRestriction = cr.getId();
+                    distanceToCapacityHardRestriction = Math.abs(cr.capacity - numPersons);
+                    capacityHardRestriction = cr.capacity;
+                    goodAlocatedHard = true;
+                }
+                if(cr.capacity >= numPersons && type.equals(cr.getType()) && (!specialRoom || cr.access)  && goodAlocatedHard){
+                    if(cr.capacity < capacityHardRestriction ){
+                        idCurrentHardRestriction = cr.getId();
+                        distanceToCapacityHardRestriction = Math.abs(cr.capacity - numPersons);
+                        capacityHardRestriction = cr.capacity;
+                    }
+                }
+                if((Math.abs(cr.capacity - numPersons) < distanceToCapacityHardRestriction) && (type.equals(cr.getType())) && (!specialRoom || cr.access) && !goodAlocatedHard){
                     idCurrentHardRestriction = cr.getId();
                     distanceToCapacityHardRestriction = Math.abs(cr.capacity - numPersons);
                     capacityHardRestriction = cr.capacity;
                 }
-                if((Math.abs(cr.capacity - numPersons) < distanceToCapacitySoftRestriction) && (type.equals(cr.getType()))){
+                if(cr.capacity >= numPersons && type.equals(cr.getType()) && !goodAlocatedSoft){
+                    idCurrentSoftRestriction = cr.getId();
+                    distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
+                    capacitySoftRestriction = cr.capacity;
+                    goodAlocatedSoft = true;
+                }
+                if(cr.capacity >= numPersons && type.equals(cr.getType()) && goodAlocatedSoft){
+                    if(cr.capacity < capacitySoftRestriction ){
+                        idCurrentSoftRestriction = cr.getId();
+                        distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
+                        capacitySoftRestriction = cr.capacity;
+                    }
+                }
+                if((Math.abs(cr.capacity - numPersons) < distanceToCapacitySoftRestriction) && (type.equals(cr.getType())) && !goodAlocatedSoft){
                     idCurrentSoftRestriction = cr.getId();
                     distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
                     capacitySoftRestriction = cr.capacity;
@@ -165,14 +193,14 @@ public class ClassRoom{
                     }
                 }
                 if(newDistanceRecorrida < distanceRecorridaSoftRestriction){
-                    if(cr.capacity >= numPersons && type.equals(cr.getType()) && (!specialRoom || cr.access)  && !goodAlocatedSoft){
+                    if(cr.capacity >= numPersons && type.equals(cr.getType()) && !goodAlocatedSoft){
                         idCurrentSoftRestriction = cr.getId();
                         distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
                         capacitySoftRestriction = cr.capacity;
                         distanceRecorridaSoftRestriction = newDistanceRecorrida;
                         goodAlocatedSoft = true;
                     }
-                    if(cr.capacity >= numPersons && type.equals(cr.getType()) && (!specialRoom || cr.access)  && goodAlocatedSoft){
+                    if(cr.capacity >= numPersons && type.equals(cr.getType()) && goodAlocatedSoft){
                         if(cr.capacity < capacitySoftRestriction ){
                             idCurrentSoftRestriction = cr.getId();
                             distanceToCapacitySoftRestriction = Math.abs(cr.capacity - numPersons);
